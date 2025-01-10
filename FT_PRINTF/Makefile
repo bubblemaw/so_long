@@ -18,7 +18,7 @@ SRCS =	printf_utils1.c \
 
 OBJS := $(SRCS:%.c=%.o)
 
-LIBFT = libft
+LIBFT = LIBFT
 
 FLAGS = -Wall -Werror -Wextra
 

@@ -65,11 +65,6 @@ int	ft_puthexa_pre(unsigned long int n, int fd)
 	int		count;
 
 	count = 0;
-	if (n < 0)
-	{
-		write(fd, "-", 1);
-		n *= -1;
-	}
 	if (n >= 16)
 	{
 		count += ft_puthexa_pre(n / 16, fd);
@@ -108,11 +103,6 @@ int	ft_puthexa_up_fd(unsigned int n, int fd)
 	int		count;
 
 	count = 0;
-	if (n < 0)
-	{
-		count += write(fd, "-", 1);
-		n *= -1;
-	}
 	if (n >= 16)
 	{
 		count += ft_puthexa_up_fd(n / 16, fd);
