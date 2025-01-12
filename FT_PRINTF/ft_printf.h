@@ -6,7 +6,7 @@
 /*   By: maw <maw@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 13:45:26 by maw               #+#    #+#             */
-/*   Updated: 2024/12/31 10:09:42 by maw              ###   ########.fr       */
+/*   Updated: 2025/01/11 12:22:46 by maw              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <limits.h>
 # include <unistd.h>
 # include <stdarg.h>
+# include <fcntl.h>
+
 
 int		ft_putnbr_fi(int n, int fd);
 int		ft_puthexa_fd(unsigned int n, int fd);
