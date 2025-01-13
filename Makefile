@@ -6,13 +6,15 @@
 #    By: maw <maw@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/09 11:39:26 by maw               #+#    #+#              #
-#    Updated: 2025/01/11 10:57:29 by maw              ###   ########.fr        #
+#    Updated: 2025/01/13 16:05:12 by maw              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
 
-SRCS = main.c
+SRCS = main.c \
+	   GNL/get_next_line.c \
+	   GNL/get_next_line_utils.c \
 
 OBJS = $(SRCS:%.c=%.o)
 

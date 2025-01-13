@@ -6,21 +6,24 @@
 /*   By: maw <maw@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 19:54:54 by maw               #+#    #+#             */
-/*   Updated: 2025/01/12 21:53:51 by maw              ###   ########.fr       */
+/*   Updated: 2025/01/13 18:09:32 by maw              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-// int read_map()
-// {
-//     int fd;
+void	print_tab(char **tab)
+{
+	int i;
 
-//     fd = open("map.ber", O_RDONLY);
-//     if (fd == -1)
-//         return (0);
+	i = 0;
+	while (tab[i])
+	{
+		ft_printf(1, "%s\n", tab[i]);
+		i++;
+	}
+}
 
-// }
 int key_hook(int keysym, t_data *data)
 {
 	(void)data;
@@ -41,22 +44,27 @@ int delete(t_data *data)
 	exit(0);
 }
 
-
-int main (void)
+int main (int ac, char **av)
 {
 	t_data  data;
-
+	if (ac < 2)
+		ft_printf(1, "message d'erreur");
+	data.map = malloc(sizeof(t_map));
+	if (!data.map)
+		ft_printf(1, "message d'erreur");
+	data.map->tab = read_map(av[1]);
+	if (!data.map->tab)
+		ft_printf(1, "message d'erreur");
 	data.mlx_ptr = mlx_init();
 	if(!data.mlx_ptr)
 		return (0);
 	data.win_ptr = mlx_new_window(data.mlx_ptr, 400, 400, "hihi");
 	if (!data.win_ptr)
 		return (0);
+	print_tab(data.map->tab);
 	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, key_hook, &data);
 	mlx_hook(data.win_ptr, DestroyNotify, StructureNotifyMask, delete, &data);
 	mlx_loop(data.mlx_ptr);
-
-
 	
 	ft_printf(1, "ah bon\n");
 	return (0);
