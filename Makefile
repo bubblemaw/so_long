@@ -6,7 +6,7 @@
 #    By: maw <maw@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/09 11:39:26 by maw               #+#    #+#              #
-#    Updated: 2025/01/13 16:05:12 by maw              ###   ########.fr        #
+#    Updated: 2025/01/14 15:26:46 by maw              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ NAME = so_long
 SRCS = main.c \
 	   GNL/get_next_line.c \
 	   GNL/get_next_line_utils.c \
+	   map_handler.c \
 
 OBJS = $(SRCS:%.c=%.o)
 

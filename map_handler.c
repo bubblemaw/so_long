@@ -6,7 +6,7 @@
 /*   By: maw <maw@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 17:57:54 by maw               #+#    #+#             */
-/*   Updated: 2025/01/13 18:55:14 by maw              ###   ########.fr       */
+/*   Updated: 2025/01/14 17:42:22 by maw              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,18 +60,15 @@ char **read_map(char *str)
 int is_rectangle(char **tab)
 {
     int i;
-    int lenth;
-    int temp;
+    size_t length;
 
     i = 0;
-    lenth = ft_strlen(tab[i]);
-    temp = lenth;
+    length = ft_strlen(tab[i]);
     while(tab[i])
     {
-        i++;
-        temp = ft_strlen(tab[i]);
-        if (lenth != temp)
+        if (ft_strlen(tab[i]) != length)
             return (0);
+        i++;
     }
     return (1);
 }
@@ -80,24 +77,64 @@ int wall_ok(char **tab)
 {
     int i;
     int j;
-    int lenth;
+    int cols;
+    int row;
 
-    i = 0;
     j = 0;
-    lenth = ft_strlen(tab[i]);
-    while(tab[i])
-        i++;
-    while (j < lenth)
+    row = 0;
+    cols = ft_strlen(tab[0]);
+    while(tab[row])
+        row++;
+    while (j < cols - 1)
     {
-        if (tab[i - 1][j] != '1' || tab[0][j])
-            return (0);
+        if (tab[0][j] != '1' || tab[row - 1][j] != '1')
+            return (ft_printf(1, "ca beug au j cols"));
         j++;
     }
-    while (i != 0)
+    i = 1;
+    while (i < row - 1)
     {
-        if (tab[i][0] != '1' && tab[i][lenth - 1] != '1')
-            return (0);
-        i--;
+        if (tab[i][0] != '1' || tab[i][cols - 2] != '1')
+            return (ft_printf(1, "ca beug au i row"));
+        i++;
     }
     return (1);
 }
+
+int checkmap(t_data *data, char *tab_ber)
+{
+    data->map = malloc(sizeof(t_map));
+	if (!data->map)
+		return (ft_printf(1, "'erreur data msp"));
+    data->map->tab = read_map(tab_ber);
+    if (!data->map->tab)
+		return (ft_printf(1, "erreur data map tab"));
+    if (is_rectangle(data->map->tab) == 0)
+        return (0);
+    if (wall_ok(data->map->tab) == 0)
+        return (0);
+    if (letter_count(data->map->tab, 'E') != 1)
+        return (0);
+    if (letter_count(data->map->tab, 'P') != 1)
+        return (0);
+    if (letter_count(data->map->tab, 'C') < 1)
+        return (0);
+    return (1);
+}
+
+void    fill(char **tab, t_data *data, char to_fill)
+{
+    if (data->map->x < 0 || data->map->x >= data->map->lenth)
+        return ;
+    if (data->map->y < 0 || data->map->y >= data->map->height)
+        return ;
+    fill(tab, data, data->map->x - 1, to_fill);
+    
+}
+
+
+void flood_fill(char **tab, t_data *data)
+{
+
+}
+

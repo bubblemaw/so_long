@@ -6,7 +6,7 @@
 /*   By: maw <maw@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 19:54:54 by maw               #+#    #+#             */
-/*   Updated: 2025/01/13 18:09:32 by maw              ###   ########.fr       */
+/*   Updated: 2025/01/14 17:42:34 by maw              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,9 @@ int main (int ac, char **av)
 {
 	t_data  data;
 	if (ac < 2)
-		ft_printf(1, "message d'erreur");
-	data.map = malloc(sizeof(t_map));
-	if (!data.map)
-		ft_printf(1, "message d'erreur");
-	data.map->tab = read_map(av[1]);
-	if (!data.map->tab)
-		ft_printf(1, "message d'erreur");
+		ft_printf(1, "erreur nombre de ac");
+	if (checkmap(&data, av[1]) == 0)
+		ft_printf(1, "erreur checkmap");
 	data.mlx_ptr = mlx_init();
 	if(!data.mlx_ptr)
 		return (0);
