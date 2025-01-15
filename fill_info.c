@@ -6,7 +6,7 @@
 /*   By: maw <maw@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 17:33:06 by maw               #+#    #+#             */
-/*   Updated: 2025/01/14 17:42:21 by maw              ###   ########.fr       */
+/*   Updated: 2025/01/15 15:08:59 by maw              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,14 @@ void    x_y_finder(t_data *data)
         {
             if (data->map->tab[i][j] == 'P')
             {
-                data->map->lenth = j;
+                data->map->x = j;
                 break;
             }
             j++;
         }
     if (data->map->tab[i][j] == 'P')
             {
-                data->map->height = i;
+                data->map->y = i;
                 break;
             }
             j++;
@@ -51,8 +51,47 @@ void    x_y_finder(t_data *data)
 
 void fill_info(t_data *data)
 {
-    data->map->lenth = ft_strlen(data->map->tab);
+    data->map->lenth = ft_strlen(data->map->tab[0]);
     data->map->height = map_height(data->map->tab);
+    x_y_finder(data);
+    data->map->collec = letter_count(data->map->tab, 'C');
+}
 
+void    fill(char **tab, t_data *data, t_point cur,t_counter *counter)
+{
     
+    if (cur.x < 0 || cur.x >= data->map->lenth)
+        return ;
+    if (cur.y < 0 || cur.y >= data->map->height)
+        return ;
+    if (tab[cur.y][cur.x] == 'F' || tab[cur.y][cur.x] == '1')
+        return;
+    if (tab[cur.y][cur.x] == 'E')
+        counter->exit++;
+    if (tab[cur.y][cur.x] == 'C')
+        counter->collecs++;
+    tab[cur.y][cur.x] = 'F';
+    fill(tab, data, (t_point){cur.x - 1, cur.y}, counter);
+    fill(tab, data, (t_point){cur.x + 1, cur.y}, counter);
+    fill(tab, data, (t_point){cur.x,  cur.y - 1}, counter);
+    fill(tab, data, (t_point){cur.x, cur.y + 1}, counter);
+}
+
+
+int flood_fill(char **tab, t_data *data)
+{
+    t_point begin;
+    t_counter counter;
+    
+    counter.collecs = 0;
+    counter.exit = 0;
+    begin.x = data->map->x;
+    begin.y = data->map->y;
+    tab[begin.y][begin.x] = '0';
+    fill(tab, data,  begin, &counter);
+    if (data->map->collec != counter.collecs)
+        return (0);
+    if (counter.exit != 1)
+        return (0);
+    return (1);
 }
