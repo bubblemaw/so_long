@@ -6,17 +6,17 @@
 /*   By: maw <maw@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 17:57:54 by maw               #+#    #+#             */
-/*   Updated: 2025/01/15 15:15:35 by maw              ###   ########.fr       */
+/*   Updated: 2025/01/17 16:47:49 by maw              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int letter_count(char **tab, char c)
+int	letter_count(char **tab, char c)
 {
-	int i;
-	int j;
-	int count;
+	int	i;
+	int	j;
+	int	count;
 
 	i = 0;
 	count = 0;
@@ -29,16 +29,16 @@ int letter_count(char **tab, char c)
 				count++;
 			j++;
 		}
-	i++;
+		i++;
 	}
 	return (count);
 }
 
-char **read_map(char *str)
+char	**read_map(char *str)
 {
-	int fd;
-	char **map;
-	int	i;
+	int		fd;
+	char	**map;
+	int		i;
 
 	fd = open(str, O_RDONLY);
 	if (fd == -1)
@@ -51,20 +51,20 @@ char **read_map(char *str)
 	{
 		map[i] = get_next_line(fd);
 		if (map[i] == NULL)
-			break;
+			break ;
 		i++;
 	}
 	return (map);
 }
 
-int is_rectangle(char **tab)
+int	is_rectangle(char **tab)
 {
-	int i;
-	size_t length;
+	int		i;
+	size_t	length;
 
 	i = 0;
 	length = ft_strlen(tab[i]);
-	while(tab[i])
+	while (tab[i])
 	{
 		if (ft_strlen(tab[i]) != length)
 			return (0);
@@ -73,17 +73,17 @@ int is_rectangle(char **tab)
 	return (1);
 }
 
-int wall_ok(char **tab)
+int	wall_ok(char **tab)
 {
-	int i;
-	int j;
-	int cols;
-	int row;
+	int	i;
+	int	j;
+	int	cols;
+	int	row;
 
 	j = 0;
 	row = 0;
 	cols = ft_strlen(tab[0]);
-	while(tab[row])
+	while (tab[row])
 		row++;
 	while (j < cols - 1)
 	{
@@ -101,7 +101,7 @@ int wall_ok(char **tab)
 	return (1);
 }
 
-int checkmap(t_data *data, char *tab_ber)
+int	checkmap(t_data *data, char *tab_ber)
 {
 	data->map = malloc(sizeof(t_map));
 	if (!data->map)

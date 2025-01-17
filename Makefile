@@ -6,7 +6,7 @@
 #    By: maw <maw@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/09 11:39:26 by maw               #+#    #+#              #
-#    Updated: 2025/01/15 16:44:34 by maw              ###   ########.fr        #
+#    Updated: 2025/01/17 15:24:52 by maw              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,9 @@ SRCS = main.c \
 	   map_handler.c \
 	   fill_info.c \
 	   image.c \
+	   move.c \
+	   message.c \
+	   
 
 OBJS = $(SRCS:%.c=%.o)
 
