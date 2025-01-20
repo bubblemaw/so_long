@@ -6,7 +6,7 @@
 /*   By: maw <maw@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 11:03:07 by maw               #+#    #+#             */
-/*   Updated: 2025/01/17 16:40:53 by maw              ###   ########.fr       */
+/*   Updated: 2025/01/19 14:38:57 by maw              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,14 @@ typedef struct s_map
 	int		collec;  
 }	t_map;
 
-typedef struct s_image_type
+typedef struct s_img
 {
 	void	*w;
 	void	*p;
 	void	*c;
 	void	*e;
 	void	*b;
-}	t_images_type;
+}	t_img;
 
 typedef struct s_point
 {
@@ -59,8 +59,8 @@ typedef struct s_data
 	void			*win;
 	int				pos_y;
 	int				pos_x;
-	t_images_type	*img;
-	t_map			*map;
+	t_img			img;
+	t_map			map;
 }	t_data;
 
 void	print_tab(char **tab);
@@ -83,5 +83,9 @@ void	move_vide(t_data *data, int x, int y);
 void	move_collec(t_data *data, int x, int y);
 void	move_exit(t_data *data);
 void	win_message(void);
+void	image_window(t_data *data, int x, int y);
+int		error(char *str);
+void	free_tab(char ***tab);
+void	free_stuff(t_data *data);
 
 #endif

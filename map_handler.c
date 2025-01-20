@@ -6,7 +6,7 @@
 /*   By: maw <maw@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 17:57:54 by maw               #+#    #+#             */
-/*   Updated: 2025/01/17 16:47:49 by maw              ###   ########.fr       */
+/*   Updated: 2025/01/19 16:29:24 by maw              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	**read_map(char *str)
 	fd = open(str, O_RDONLY);
 	if (fd == -1)
 		return (0);
-	map = malloc (sizeof(char *) * 400);
+	map = malloc (sizeof(char *) * 300);
 	if (map == NULL)
 		return (0);
 	i = 0;
@@ -103,21 +103,21 @@ int	wall_ok(char **tab)
 
 int	checkmap(t_data *data, char *tab_ber)
 {
-	data->map = malloc(sizeof(t_map));
-	if (!data->map)
-		return (ft_printf(1, "'erreur data msp"));
-	data->map->tab = read_map(tab_ber);
-	if (!data->map->tab)
+	// data->map = malloc(sizeof(t_map));
+	// if (!data->map)
+	// 	return (ft_printf(1, "'erreur data msp"));
+	data->map.tab = read_map(tab_ber);
+	if (!data->map.tab)
 		return (ft_printf(1, "erreur data map tab"));
-	if (is_rectangle(data->map->tab) == 0)
+	if (is_rectangle(data->map.tab) == 0)
 		return (0);
-	if (wall_ok(data->map->tab) == 0)
+	if (wall_ok(data->map.tab) == 0)
 		return (0);
-	if (letter_count(data->map->tab, 'E') != 1)
+	if (letter_count(data->map.tab, 'E') != 1)
 		return (0);
-	if (letter_count(data->map->tab, 'P') != 1)
+	if (letter_count(data->map.tab, 'P') != 1)
 		return (0);
-	if (letter_count(data->map->tab, 'C') < 1)
+	if (letter_count(data->map.tab, 'C') < 1)
 		return (0);
 	return (1);
 }

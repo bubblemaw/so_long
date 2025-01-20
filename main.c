@@ -6,7 +6,7 @@
 /*   By: maw <maw@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 19:54:54 by maw               #+#    #+#             */
-/*   Updated: 2025/01/17 16:45:46 by maw              ###   ########.fr       */
+/*   Updated: 2025/01/19 16:38:03 by maw              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	key_hook(int keysym, t_data *data)
 	{
 		mlx_destroy_window(data->mlx, data->win);
 		mlx_destroy_display(data->mlx);
+		free_stuff(data);
 		exit(0);
 	}
 	display_image(data);
@@ -55,33 +56,31 @@ int	delete(t_data *data)
 
 int	main (int ac, char **av)
 {
-	t_data 	data;
+	t_data	data;
 
 	if (ac < 2)
-		ft_printf(1, "erreur nombre de ac\n");
+		return (error("Wrong number of arguments\n"));
 	if (checkmap(&data, av[1]) == 0)
-		ft_printf(1, "erreur checkmap\n");
+		return (error("Map error\n"));
 	fill_info(&data);
-	if (flood_fill(data.map->tab, &data) == 0)
-		ft_printf(1, "erreur floodfill\n");
-	print_tab(data.map->tab);
+	if (flood_fill(data.map.tab, &data) == 0)
+		return (error("Map error\n"));
+	print_tab(data.map.tab);
 	checkmap(&data, av[1]);
 	fill_info(&data);
 	data.mlx = mlx_init();
 	if (!data.mlx)
-		return (0);
-	ft_printf(1, "%d\n%d\n", data.map->lenth, data.map->height);
-	data.win = mlx_new_window(data.mlx, data.map->lenth, data.map->height, "hihi");
+		return (error("Error initialazing mlx\n"));
+	data.win = mlx_new_window(
+			data.mlx, data.map.lenth, data.map.height, "hihi");
 	if (!data.win)
-		return (0);
-	print_tab(data.map->tab);
-	data.img = malloc(sizeof(t_images_type));
+		return (error("Error creating window\n"));
+	print_tab(data.map.tab);
 	if (load_image(&data) == 0)
-		return (ft_printf(1, "erreur load image") ,0);
+		return (error("Error loading images\n"));
 	display_image(&data);
 	mlx_hook(data.win, KeyPress, KeyPressMask, key_hook, &data);
 	mlx_hook(data.win, DestroyNotify, StructureNotifyMask, delete, &data);
 	mlx_loop(data.mlx);
-	ft_printf(1, "ah bon\n");
 	return (0);
 }
