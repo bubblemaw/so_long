@@ -6,7 +6,7 @@
 /*   By: maw <maw@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 17:57:54 by maw               #+#    #+#             */
-/*   Updated: 2025/01/19 16:29:24 by maw              ###   ########.fr       */
+/*   Updated: 2025/01/20 18:46:30 by maw              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,28 @@ int	is_rectangle(char **tab)
 	return (1);
 }
 
+int	char_ok(char **tab)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (tab[i])
+	{
+		j = 0;
+		while (tab[i][j])
+		{
+			if (tab[i][j] != 'E' || tab[i][j] != 'C' ||
+				tab[i][j] != '1' || tab[i][j] != '0' ||
+				tab[i][j] != 'P' )
+				return (0);
+			j++;
+		}
+		i++;
+	}
+	return (1);
+}
+
 int	wall_ok(char **tab)
 {
 	int	i;
@@ -108,10 +130,12 @@ int	checkmap(t_data *data, char *tab_ber)
 	// 	return (ft_printf(1, "'erreur data msp"));
 	data->map.tab = read_map(tab_ber);
 	if (!data->map.tab)
-		return (ft_printf(1, "erreur data map tab"));
+		return (0);
 	if (is_rectangle(data->map.tab) == 0)
 		return (0);
 	if (wall_ok(data->map.tab) == 0)
+		return (0);
+	if (char_ok(data->map.tab) == 0)
 		return (0);
 	if (letter_count(data->map.tab, 'E') != 1)
 		return (0);

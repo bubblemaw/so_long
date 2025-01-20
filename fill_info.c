@@ -6,7 +6,7 @@
 /*   By: maw <maw@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 17:33:06 by maw               #+#    #+#             */
-/*   Updated: 2025/01/19 14:06:19 by maw              ###   ########.fr       */
+/*   Updated: 2025/01/20 18:54:26 by maw              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,20 @@ void	x_y_finder(t_data *data)
 	}
 }
 
-void	fill_info(t_data *data)
+int	fill_info(t_data *data)
 {
 	data->map.lenth = (ft_strlen(data->map.tab[0]) - 1) * IMG_W;
+	if (data->map.lenth <= 2 * IMG_W)
+		return (0);
 	data->map.height = map_height(data->map.tab);
+	if (data->map.height <= 2 * IMG_H)
+		return (0);
+	if (data->map.height == data->map.lenth)
+		return (0);
 	x_y_finder(data);
 	data->map.collec = letter_count(data->map.tab, 'C');
+	data->map.move = 0;
+	return (1);
 }
 
 void	fill(char **tab, t_data *data, t_point cur, t_counter *counter)

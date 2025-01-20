@@ -6,7 +6,7 @@
 /*   By: maw <maw@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 13:15:38 by maw               #+#    #+#             */
-/*   Updated: 2025/01/19 12:44:07 by maw              ###   ########.fr       */
+/*   Updated: 2025/01/20 15:56:50 by maw              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	move_vide(t_data *data, int x, int y)
 	data->map.tab[data->pos_y][data->pos_x] = '0';
 	data->pos_x += x;
 	data->pos_y += y;
+	data->map.move++;
 }
 
 void	move_collec(t_data *data, int x, int y)
@@ -27,12 +28,15 @@ void	move_collec(t_data *data, int x, int y)
 	data->map.collec--;
 	data->pos_x += x;
 	data->pos_y += y;
+	data->map.move++;
 }
 
 void	move_exit(t_data *data)
 {
+	destroy_image(&data->img, data);
 	mlx_destroy_window(data->mlx, data->win);
 	mlx_destroy_display(data->mlx);
+	free_stuff(data);
 	win_message();
 	exit(0);
 }
@@ -49,7 +53,10 @@ int	move_player(t_data *data, int x, int y)
 	if (data->map.tab[data->pos_y + y][data->pos_x + x] == 'E')
 	{
 		if (data->map.collec == 0)
+		{
 			move_exit(data);
+			data->map.move++;
+		}
 	}
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: maw <maw@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 13:10:39 by maw               #+#    #+#             */
-/*   Updated: 2025/01/19 16:25:03 by maw              ###   ########.fr       */
+/*   Updated: 2025/01/20 15:08:04 by maw              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,39 +36,26 @@ void	free_tab(char ***tab)
 	*tab = NULL;
 }
 
-// void	free_image(t_data *data)
-// {
-// 	if (data->img.c)
-// 		free(data->img.c);
-// 	if (data->img.e)
-// 		free(data->img.c);
-// 	if (data->img.b)
-// 		free(data->img.c);
-// 	if (data->img.w)
-// 		free(data->img.c);
-// 	if (data->img.p)
-// 		free(data->img.c);
-// }
-// void	free_image(t_data *data)
-// {
-// 	if (!data || !data->mlx)
-// 		return;
-// 	if (data->img.c)
-// 		mlx_destroy_image(data->mlx, data->img.c);
-// 	if (data->img.e)
-// 		mlx_destroy_image(data->mlx, data->img.e);
-// 	if (data->img.b)
-// 		mlx_destroy_image(data->mlx, data->img.b);
-// 	if (data->img.w)
-// 		mlx_destroy_image(data->mlx, data->img.w);
-// 	if (data->img.p)
-// 		mlx_destroy_image(data->mlx, data->img.p);
-// }
+void	destroy_image(t_img *img, t_data *data)
+{
+	if (!img)
+		return ;
+	if (img->c)
+		mlx_destroy_image(data->mlx, img->c);
+	if (img->b)
+		mlx_destroy_image(data->mlx, img->b);
+	if (img->p)
+		mlx_destroy_image(data->mlx, img->p);
+	if (img->e)
+		mlx_destroy_image(data->mlx, img->e);
+	if (img->w)
+		mlx_destroy_image(data->mlx, img->w);
+}
 
 
 void	free_stuff(t_data *data)
 {
+	free(data->mlx);
 	free_tab(&data->map.tab);
-	// free_image(data);
 	ft_memset(data, 0, sizeof(t_data));
 }
