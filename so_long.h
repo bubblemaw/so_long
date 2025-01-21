@@ -6,7 +6,7 @@
 /*   By: maw <maw@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 11:03:07 by maw               #+#    #+#             */
-/*   Updated: 2025/01/20 18:54:47 by maw              ###   ########.fr       */
+/*   Updated: 2025/01/21 17:18:01 by maw              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int		is_rectangle(char **tab);
 int		wall_ok(char **tab);
 int		checkmap(t_data *data, char *tab_ber);
 int		map_height(char **tab);
-void	x_y_finder(t_data *data);
+int		x_y_finder(t_data *data);
 int		fill_info(t_data *data);
 int		flood_fill(char **tab, t_data *data);
 void	fill(char **tab, t_data *data, t_point cur, t_counter *counter);
@@ -91,5 +91,6 @@ void	free_stuff(t_data *data);
 void	destroy_image(t_img *img, t_data *data);
 int		run_game(t_data *data);
 int		char_ok(char **tab);
+int		count_line(char *str);
 
 #endif

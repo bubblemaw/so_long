@@ -6,7 +6,7 @@
 /*   By: maw <maw@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 17:57:54 by maw               #+#    #+#             */
-/*   Updated: 2025/01/20 18:46:30 by maw              ###   ########.fr       */
+/*   Updated: 2025/01/21 17:20:57 by maw              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,29 @@ int	letter_count(char **tab, char c)
 	return (count);
 }
 
+int	count_line(char *str)
+{
+	int		fd;
+	int		count;
+	char	*line;
+
+	line = NULL;
+	fd = open(str, O_RDONLY);
+	if (fd == -1)
+		return (0);
+	count = 0;
+	while (1)
+	{
+		line = get_next_line(fd);
+		if (line == NULL)
+			break ;
+		count++;
+		free(line);
+	}
+	close (fd);
+	return (count);
+}
+
 char	**read_map(char *str)
 {
 	int		fd;
@@ -43,7 +66,7 @@ char	**read_map(char *str)
 	fd = open(str, O_RDONLY);
 	if (fd == -1)
 		return (0);
-	map = malloc (sizeof(char *) * 300);
+	map = malloc (sizeof(char *) * (count_line(str) + 1));
 	if (map == NULL)
 		return (0);
 	i = 0;
@@ -54,6 +77,7 @@ char	**read_map(char *str)
 			break ;
 		i++;
 	}
+	close (fd);
 	return (map);
 }
 
@@ -62,10 +86,18 @@ int	is_rectangle(char **tab)
 	int		i;
 	size_t	length;
 
+	if (!tab || !tab[0])
+		return (0);
 	i = 0;
 	length = ft_strlen(tab[i]);
 	while (tab[i])
 	{
+		if (tab[i + 1] == NULL)
+		{
+			if (ft_strlen(tab[i]) == length - 1)
+				return (1);
+
+		}
 		if (ft_strlen(tab[i]) != length)
 			return (0);
 		i++;
@@ -84,9 +116,9 @@ int	char_ok(char **tab)
 		j = 0;
 		while (tab[i][j])
 		{
-			if (tab[i][j] != 'E' || tab[i][j] != 'C' ||
-				tab[i][j] != '1' || tab[i][j] != '0' ||
-				tab[i][j] != 'P' )
+			if (!(tab[i][j] == 'E' || tab[i][j] == 'C' ||
+				tab[i][j] == '1' || tab[i][j] == '0' ||
+				tab[i][j] == 'P' || tab[i][j] == '\n'))
 				return (0);
 			j++;
 		}
@@ -110,14 +142,14 @@ int	wall_ok(char **tab)
 	while (j < cols - 1)
 	{
 		if (tab[0][j] != '1' || tab[row - 1][j] != '1')
-			return (ft_printf(1, "ca beug au j cols"));
+			return (0);
 		j++;
 	}
 	i = 1;
 	while (i < row - 1)
 	{
 		if (tab[i][0] != '1' || tab[i][cols - 2] != '1')
-			return (ft_printf(1, "ca beug au i row"));
+			return (0);
 		i++;
 	}
 	return (1);

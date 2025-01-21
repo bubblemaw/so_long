@@ -6,7 +6,7 @@
 /*   By: maw <maw@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 17:33:06 by maw               #+#    #+#             */
-/*   Updated: 2025/01/20 18:54:26 by maw              ###   ########.fr       */
+/*   Updated: 2025/01/21 16:35:06 by maw              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,14 @@ int	map_height(char **tab)
 	return (i);
 }
 
-void	x_y_finder(t_data *data)
+int	x_y_finder(t_data *data)
 {
 	int	i;
 	int	j;
 
 	i = 0;
+	data->pos_x = -1;
+	data->pos_y = -1;
 	while (data->map.tab[i])
 	{
 		j = 0;
@@ -37,17 +39,14 @@ void	x_y_finder(t_data *data)
 			if (data->map.tab[i][j] == 'P')
 			{
 				data->pos_x = j;
-				break ;
+				data->pos_y = i;
+				return (1);
 			}
 			j++;
 		}
-		if (data->map.tab[i][j] == 'P')
-		{
-			data->pos_y = i;
-			break ;
-		}
 		i++;
 	}
+	return (0);
 }
 
 int	fill_info(t_data *data)
@@ -68,10 +67,9 @@ int	fill_info(t_data *data)
 
 void	fill(char **tab, t_data *data, t_point cur, t_counter *counter)
 {
-
-	if (cur.x < 0 || cur.x >= data->map.lenth)
+	if (cur.x < 0 || cur.x * IMG_W >= data->map.lenth)
 		return ;
-	if (cur.y < 0 || cur.y >= data->map.height)
+	if (cur.y < 0 || cur.y * IMG_H >= data->map.height)
 		return ;
 	if (tab[cur.y][cur.x] == 'F' || tab[cur.y][cur.x] == '1')
 		return ;
@@ -92,11 +90,16 @@ int	flood_fill(char **tab, t_data *data)
 	t_point		begin;
 	t_counter	counter;
 
+	ft_printf(1, "AMG AMG AMG\n");
+	ft_printf(1, "%d\n", data->pos_x);
+	ft_printf(1, "%d\n", data->pos_y);
 	counter.collecs = 0;
 	counter.exit = 0;
 	begin.x = data->pos_x;
 	begin.y = data->pos_y;
 	tab[begin.y][begin.y] = '0';
+	ft_printf(1, "AMG AMG AMG");
+	print_tab(data->map.tab);
 	fill(tab, data, begin, &counter);
 	if (data->map.collec != counter.collecs)
 		return (0);

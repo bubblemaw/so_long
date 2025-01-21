@@ -6,7 +6,7 @@
 /*   By: maw <maw@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 19:54:54 by maw               #+#    #+#             */
-/*   Updated: 2025/01/20 18:56:23 by maw              ###   ########.fr       */
+/*   Updated: 2025/01/21 17:28:06 by maw              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,14 +79,19 @@ int	all_check(t_data *data, char *av)
 	if (checkmap(data, av) == 0)
 	{
 		free_stuff(data);
-		return (error("Map error\n"));
+		return (error("Map error checkmap\n"));
 	}
 	fill_info(data);
-	if (flood_fill(data->map.tab, data) == 0)
-	{
-		free_stuff(data);
-		return (error("Map error\n"));
-	}
+	print_tab(data->map.tab);
+	ft_printf(1, "%d\n", data->pos_x);
+	ft_printf(1, "%d\n", data->pos_y);
+	// flood_fill(data->map.tab, data);
+	// print_tab(data->map.tab);
+	// if (flood_fill(data->map.tab, data) == 0)
+	// {
+	// 	// free_stuff(data);
+	// 	return (error("Map error flood fill\n"));
+	// }
 	free_tab(&data->map.tab);
 	return (1);
 }
@@ -97,6 +102,7 @@ int	main(int ac, char **av)
 
 	if (ac < 2)
 		return (error("Wrong number of arguments\n"));
+	ft_memset(&data, 0, sizeof(t_data));
 	all_check(&data, av[1]);
 	if (checkmap(&data, av[1]) == 0)
 	{
