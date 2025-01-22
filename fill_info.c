@@ -6,7 +6,7 @@
 /*   By: maw <maw@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 17:33:06 by maw               #+#    #+#             */
-/*   Updated: 2025/01/21 16:35:06 by maw              ###   ########.fr       */
+/*   Updated: 2025/01/22 17:54:46 by maw              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,13 @@ int	x_y_finder(t_data *data)
 int	fill_info(t_data *data)
 {
 	data->map.lenth = (ft_strlen(data->map.tab[0]) - 1) * IMG_W;
-	if (data->map.lenth <= 2 * IMG_W)
+	if (data->map.lenth == 0)
 		return (0);
 	data->map.height = map_height(data->map.tab);
-	if (data->map.height <= 2 * IMG_H)
+	if (data->map.height == 0)
 		return (0);
-	if (data->map.height == data->map.lenth)
+	if (x_y_finder(data) == 0)
 		return (0);
-	x_y_finder(data);
 	data->map.collec = letter_count(data->map.tab, 'C');
 	data->map.move = 0;
 	return (1);
@@ -72,6 +71,8 @@ void	fill(char **tab, t_data *data, t_point cur, t_counter *counter)
 	if (cur.y < 0 || cur.y * IMG_H >= data->map.height)
 		return ;
 	if (tab[cur.y][cur.x] == 'F' || tab[cur.y][cur.x] == '1')
+		return ;
+	if (counter->collecs != data->map.collec && tab[cur.y][cur.x] == 'E')
 		return ;
 	if (tab[cur.y][cur.x] == 'E')
 		counter->exit++;
@@ -90,16 +91,11 @@ int	flood_fill(char **tab, t_data *data)
 	t_point		begin;
 	t_counter	counter;
 
-	ft_printf(1, "AMG AMG AMG\n");
-	ft_printf(1, "%d\n", data->pos_x);
-	ft_printf(1, "%d\n", data->pos_y);
 	counter.collecs = 0;
 	counter.exit = 0;
 	begin.x = data->pos_x;
 	begin.y = data->pos_y;
-	tab[begin.y][begin.y] = '0';
-	ft_printf(1, "AMG AMG AMG");
-	print_tab(data->map.tab);
+	tab[begin.y][begin.x] = '0';
 	fill(tab, data, begin, &counter);
 	if (data->map.collec != counter.collecs)
 		return (0);

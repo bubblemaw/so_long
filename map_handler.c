@@ -6,7 +6,7 @@
 /*   By: maw <maw@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 17:57:54 by maw               #+#    #+#             */
-/*   Updated: 2025/01/21 17:20:57 by maw              ###   ########.fr       */
+/*   Updated: 2025/01/22 11:41:18 by maw              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,12 +157,9 @@ int	wall_ok(char **tab)
 
 int	checkmap(t_data *data, char *tab_ber)
 {
-	// data->map = malloc(sizeof(t_map));
-	// if (!data->map)
-	// 	return (ft_printf(1, "'erreur data msp"));
 	data->map.tab = read_map(tab_ber);
 	if (!data->map.tab)
-		return (0);
+		return (error("Reading map error\n"));
 	if (is_rectangle(data->map.tab) == 0)
 		return (0);
 	if (wall_ok(data->map.tab) == 0)

@@ -6,7 +6,7 @@
 /*   By: maw <maw@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 19:54:54 by maw               #+#    #+#             */
-/*   Updated: 2025/01/21 17:28:06 by maw              ###   ########.fr       */
+/*   Updated: 2025/01/22 18:28:43 by maw              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,11 @@ int	key_hook(int keysym, t_data *data)
 
 int	delete(t_data *data)
 {
+	destroy_image(&data->img, data);
 	mlx_destroy_window(data->mlx, data->win);
 	mlx_destroy_display(data->mlx);
-	exit(0);
+	free_stuff(data);
+	exit(EXIT_SUCCESS);
 }
 
 int	run_game(t_data *data)
@@ -74,24 +76,38 @@ int	run_game(t_data *data)
 	return (1);
 }
 
+int	check_arg(char *str)
+{
+	int	len;
+
+	if (!str)
+		return (0);
+	len = ft_strlen(str);
+	if (ft_strncmp(str + (len - 4), ".ber", 4) == 0)
+		return (1);
+	return (0);
+}
+
 int	all_check(t_data *data, char *av)
 {
+	if (check_arg(av) == 0)
+		return (error("Argument must finish by .ber\n"));
 	if (checkmap(data, av) == 0)
 	{
 		free_stuff(data);
-		return (error("Map error checkmap\n"));
+		return (error("Map error\n"));
 	}
-	fill_info(data);
-	print_tab(data->map.tab);
-	ft_printf(1, "%d\n", data->pos_x);
-	ft_printf(1, "%d\n", data->pos_y);
-	// flood_fill(data->map.tab, data);
-	// print_tab(data->map.tab);
-	// if (flood_fill(data->map.tab, data) == 0)
-	// {
-	// 	// free_stuff(data);
-	// 	return (error("Map error flood fill\n"));
-	// }
+	if (fill_info(data) == 0)
+	{
+		free_stuff(data);
+		return (error("Map error\n"));
+	}
+	if (flood_fill(data->map.tab, data) == 0)
+	{
+		print_tab(data->map.tab);
+		free_stuff(data);
+		return (error("Map error: this map can't be achieved :(\n"));
+	}
 	free_tab(&data->map.tab);
 	return (1);
 }
@@ -100,7 +116,7 @@ int	main(int ac, char **av)
 {
 	t_data	data;
 
-	if (ac < 2)
+	if (ac != 2)
 		return (error("Wrong number of arguments\n"));
 	ft_memset(&data, 0, sizeof(t_data));
 	all_check(&data, av[1]);
