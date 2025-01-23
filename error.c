@@ -6,7 +6,7 @@
 /*   By: maw <maw@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 13:10:39 by maw               #+#    #+#             */
-/*   Updated: 2025/01/20 15:08:04 by maw              ###   ########.fr       */
+/*   Updated: 2025/01/22 19:37:42 by maw              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,13 @@ void	free_stuff(t_data *data)
 	free(data->mlx);
 	free_tab(&data->map.tab);
 	ft_memset(data, 0, sizeof(t_data));
+}
+
+int	delete(t_data *data)
+{
+	destroy_image(&data->img, data);
+	mlx_destroy_window(data->mlx, data->win);
+	mlx_destroy_display(data->mlx);
+	free_stuff(data);
+	exit(EXIT_SUCCESS);
 }

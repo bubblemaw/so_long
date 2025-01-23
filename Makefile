@@ -6,11 +6,9 @@
 #    By: maw <maw@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/09 11:39:26 by maw               #+#    #+#              #
-#    Updated: 2025/01/22 17:39:39 by maw              ###   ########.fr        #
+#    Updated: 2025/01/22 19:42:23 by maw              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
-# Makefile du Linux
 
 NAME = so_long
 
@@ -22,7 +20,9 @@ SRCS        =    main.c \
 				move.c \
 				image.c \
 				map_handler.c \
+				map_handler2.c \
 				message.c \
+				utils1.c \
 				GNL/get_next_line.c \
 				GNL/get_next_line_utils.c
 
@@ -37,7 +37,6 @@ MLX_FLAGS = -Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11
 LIBFT_PATH = FT_PRINTF/
 
 LIBFT_LIB = $(LIBFT_PATH)libftprintf.a
-
 
 OBJECTS = $(SRCS:%.c=%.o)
 
@@ -64,11 +63,6 @@ fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
-
-norm:
-	norminette libft initializer.c key_hook.c map.c move.c validate_input.c place_images.c main.c so_long.h victory.c helpers.c
-
-.PHONY: all clean fclean re norm
 
 # NAME        =    so_long
 

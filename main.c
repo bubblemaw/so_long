@@ -6,23 +6,11 @@
 /*   By: maw <maw@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 19:54:54 by maw               #+#    #+#             */
-/*   Updated: 2025/01/22 18:28:43 by maw              ###   ########.fr       */
+/*   Updated: 2025/01/22 19:44:24 by maw              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-void	print_tab(char **tab)
-{
-	int	i;
-
-	i = 0;
-	while (tab[i])
-	{
-		ft_printf(1, "%s\n", tab[i]);
-		i++;
-	}
-}
 
 int	key_hook(int keysym, t_data *data)
 {
@@ -47,15 +35,6 @@ int	key_hook(int keysym, t_data *data)
 	display_image(data);
 	ft_printf(1, "moves: %d\n", data->map.move);
 	return (0);
-}
-
-int	delete(t_data *data)
-{
-	destroy_image(&data->img, data);
-	mlx_destroy_window(data->mlx, data->win);
-	mlx_destroy_display(data->mlx);
-	free_stuff(data);
-	exit(EXIT_SUCCESS);
 }
 
 int	run_game(t_data *data)
@@ -104,7 +83,6 @@ int	all_check(t_data *data, char *av)
 	}
 	if (flood_fill(data->map.tab, data) == 0)
 	{
-		print_tab(data->map.tab);
 		free_stuff(data);
 		return (error("Map error: this map can't be achieved :(\n"));
 	}
