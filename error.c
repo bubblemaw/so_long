@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maw <maw@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: masase <masase@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 13:10:39 by maw               #+#    #+#             */
-/*   Updated: 2025/01/22 19:37:42 by maw              ###   ########.fr       */
+/*   Updated: 2025/01/24 14:45:11 by masase           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void	destroy_image(t_img *img, t_data *data)
 	if (img->w)
 		mlx_destroy_image(data->mlx, img->w);
 }
-
 
 void	free_stuff(t_data *data)
 {

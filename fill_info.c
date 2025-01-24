@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_info.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maw <maw@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: masase <masase@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 17:33:06 by maw               #+#    #+#             */
-/*   Updated: 2025/01/22 17:54:46 by maw              ###   ########.fr       */
+/*   Updated: 2025/01/24 15:44:25 by masase           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,13 @@ void	fill(char **tab, t_data *data, t_point cur, t_counter *counter)
 		return ;
 	if (cur.y < 0 || cur.y * IMG_H >= data->map.height)
 		return ;
+	if (tab[cur.y][cur.x] == 'E')
+	{
+		counter->exit++;
+		return ;
+	}
 	if (tab[cur.y][cur.x] == 'F' || tab[cur.y][cur.x] == '1')
 		return ;
-	if (counter->collecs != data->map.collec && tab[cur.y][cur.x] == 'E')
-		return ;
-	if (tab[cur.y][cur.x] == 'E')
-		counter->exit++;
 	if (tab[cur.y][cur.x] == 'C')
 		counter->collecs++;
 	tab[cur.y][cur.x] = 'F';
@@ -84,7 +85,6 @@ void	fill(char **tab, t_data *data, t_point cur, t_counter *counter)
 	fill(tab, data, (t_point){cur.x, cur.y - 1}, counter);
 	fill(tab, data, (t_point){cur.x, cur.y + 1}, counter);
 }
-
 
 int	flood_fill(char **tab, t_data *data)
 {
@@ -99,7 +99,7 @@ int	flood_fill(char **tab, t_data *data)
 	fill(tab, data, begin, &counter);
 	if (data->map.collec != counter.collecs)
 		return (0);
-	if (counter.exit != 1)
+	if (counter.exit < 1)
 		return (0);
 	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maw <maw@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: masase <masase@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 19:54:54 by maw               #+#    #+#             */
-/*   Updated: 2025/01/22 19:44:24 by maw              ###   ########.fr       */
+/*   Updated: 2025/01/24 15:43:51 by masase           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 int	key_hook(int keysym, t_data *data)
 {
-	(void)data;
-
 	if (keysym == 97)
 		move_player(data, -1, 0);
 	if (keysym == 115)
@@ -32,7 +30,7 @@ int	key_hook(int keysym, t_data *data)
 		free_stuff(data);
 		exit(EXIT_SUCCESS);
 	}
-	display_image(data);
+	display_move(data, keysym);
 	ft_printf(1, "moves: %d\n", data->map.move);
 	return (0);
 }

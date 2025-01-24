@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_handler.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maw <maw@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: masase <masase@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 17:57:54 by maw               #+#    #+#             */
-/*   Updated: 2025/01/22 19:33:51 by maw              ###   ########.fr       */
+/*   Updated: 2025/01/24 14:45:57 by masase           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ int	is_rectangle(char **tab)
 		{
 			if (ft_strlen(tab[i]) == length - 1)
 				return (1);
-
 		}
 		if (ft_strlen(tab[i]) != length)
 			return (0);

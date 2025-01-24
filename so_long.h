@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maw <maw@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: masase <masase@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 11:03:07 by maw               #+#    #+#             */
-/*   Updated: 2025/01/22 08:00:37 by maw              ###   ########.fr       */
+/*   Updated: 2025/01/24 14:48:44 by masase           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,6 @@ int		char_ok(char **tab);
 int		count_line(char *str);
 int		all_check(t_data *data, char *av);
 int		check_arg(char *str);
+int		display_move(t_data *data, int keysym);
 
 #endif

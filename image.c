@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maw <maw@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: masase <masase@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:44:05 by maw               #+#    #+#             */
-/*   Updated: 2025/01/19 12:50:13 by maw              ###   ########.fr       */
+/*   Updated: 2025/01/24 12:19:11 by masase           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,20 @@ int	display_image(t_data *data)
 	return (1);
 }
 
+int	display_move(t_data *data, int keysym)
+{
+	if (keysym == 97)
+		image_window(data, data->pos_x + 1, data->pos_y);
+	if (keysym == 115)
+		image_window(data, data->pos_x, data->pos_y - 1);
+	if (keysym == 100)
+		image_window(data, data->pos_x - 1, data->pos_y);
+	if (keysym == 119)
+		image_window(data, data->pos_x, data->pos_y + 1);
+	image_window(data, data->pos_x, data->pos_y);
+	return (1);
+}
+
 void	image_window(t_data *data, int x, int y)
 {
 	mlx_put_image_to_window(
@@ -75,6 +89,4 @@ void	image_window(t_data *data, int x, int y)
 	if (data->map.tab[y][x] == 'C')
 		mlx_put_image_to_window(
 			data->mlx, data->win, data->img.c, x * IMG_W, y * IMG_H);
-
 }
-
